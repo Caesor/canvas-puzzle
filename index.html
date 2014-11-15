@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Puzzle</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="keywords" content="canvas puzzle javascript" />
+	<meta name="description" content="A little puzzle game draws by canvas." />
+	<link rel="stylesheet" type="text/css" href="puzzle.css" />
+</head>
+<body>
+	<header>
+		<h1>Puzzle</h1>
+		<ul class="game_info">
+			<li>Level : <span id="level">3</span></li>
+			<li>Step : <span id="step">0</span></li>
+			<li>Time : <span id="time">0</span> s </li>
+		</ul>
+	</header>
+	<section class="puzzle_wall">
+		<canvas id="puzzle_area" width="400" height="400">该浏览器不支持canvas</canvas>
+		<section class="control_bar">
+			<label>Backgroud:
+				<select id="bg">
+					<option>Get hitching</option>
+					<option>Dancing</option>
+					<option>Cartoon</option>
+				</select>
+			</label>
+			<label>Level:
+				<select id="choose_level">
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</label>
+			<button id="start">Start</button>
+			<button id="cheat">Cheat</button>
+		</section>
+	</section>
+
+	<script type="text/javascript" src="puzzle.js"></script>
+</body>
+</html>

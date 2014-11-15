@@ -1,0 +1,44 @@
+body, header, footer, h1, p, section, ul ,li, button{margin: 0;padding: 0;}
+
+body{font-family:cursive;}
+
+header{margin: 10px 0;}
+header h1{font-size: 40px;font-weight: 900;text-align: center;line-height: 50px;}
+header .game_info{font-size: 20px; text-align: center;margin: 10px 0;list-style-type: none;}
+header .game_info li{display: inline-block; margin:0 30px;}
+.puzzle_wall{text-align: center;}
+canvas{border:1px solid #ccc;}
+
+@keyframes littlechange
+{
+	from {opacity:0.4;}
+	to {opacity:1;}
+}
+@-moz-keyframes littlechange /* Firefox */
+{
+	from {opacity:0.4;}
+	to {opacity:1;}
+}
+
+@-webkit-keyframes littlechange /* Safari and Chrome */
+{
+	from {opacity:0.4;}
+	to {opacity:1;}
+}
+
+@-o-keyframes littlechange /* Opera */
+{
+	from {opacity:0.4;}
+	to {opacity:1;}
+}
+.control_bar select, button{padding: 5px;margin: 10px 2px;}
+.control_bar label{display:inline-block;}
+footer{text-align: center;width: 100%;opacity: 0.5;line-height:40px;margin: 0 auto;}
+
+@media screen and (max-width: 400px){
+	header h1 {font-size: 30px;line-height: 30px;}
+	header .game_info li{font-size: 18px;margin:0 10px;}
+	.control_bar label{text-align:left;}
+	#start{font-size:15px;width:94%;line-height:25px;margin:10px auto;}
+	#cheat{display:none;}
+}
