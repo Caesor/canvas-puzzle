@@ -41,6 +41,7 @@
 	}
 	Board.prototype = {
 		init:function(){
+			this.ctx.clearRect(0,0,this.width,this.height);
 			this.initGrid();
 			this.drawGrid();
 		//	this.shuffle();
@@ -238,7 +239,7 @@ var el = document.getElementById("puzzle_area");
 var ctx = el.getContext("2d");
 
 var image = new Image();
-image.src = "resource/background2.jpg";
+image.src = "resource/background0.jpg";
 image.onload = init;
 var width = 400;
 var height = width;
