@@ -10,9 +10,25 @@
  * @param  COLNUM  The column number of puzzle
  * 
  */
-(function(){
-	function Block(image, l, t, x, y, w, h){
-		this.image = image;
+var PuzzleGame = (function(){
+	var cols = 3;
+	var raws = cols;
+	var width = 400;
+	var height = width;
+	var imageName = "background0.jpg"
+
+	function PuzzleGame(){
+		this.game = new Game();
+	}
+
+	function ImgLoader(src){
+		var path = "resource/"
+		this.image = new Image();
+		this.image.src = path + imageName;
+	}
+	function Block(l, t, x, y, w, h){
+		this.imgLoader = new ImgLoader();
+		this.image = this.imgLoader.image;
 		this.left = l;
 		this.top = t;
 		this.x = x;
@@ -25,19 +41,21 @@
 	}
 	window.Block = Block;
 	//the map
-	function Board(bg, n, w, h){
-		var grid;
-		this.background = bg;
-		this.cols = n;
-		this.total_num = n * n;
-		this.width = w;
-		this.height = h;
-		this.blockSize = w / n;
+	function Board(n, w, h){
+		this.cols = n || cols;
+		this.total_num = this.cols * this.cols;
+		this.width = w || width; 
+		this.height = h || height;
+		this.blockSize = this.width / this.cols;
 		this.canvas = document.getElementById("puzzle_area");
 		this.ctx = this.canvas.getContext('2d');
 
+		this.block = new Block();
 		this.puzzle = new Array();
 		this.emptyPosition = [0,0];
+
+		this.step = 0;
+		this.show_step = document.getElementById("step");
 	}
 	Board.prototype = {
 		init:function(){
@@ -45,7 +63,7 @@
 			this.initGrid();
 			this.drawGrid();
 		//	this.shuffle();
-			this.addHandlerToBlock();
+			//this.addHandlerToBlock();
 		},
 		initGrid:function(){
 			for(var i = 0; i < this.total_num; i++){
@@ -53,7 +71,7 @@
 				var y = parseInt(i / this.cols) * this.blockSize;
 				//don't draw the last part of puzzle
 				if(i != this.total_num - 1){
-					this.puzzle[i] = new Block(this.background, x, y, x, y,this.blockSize, this.blockSize);
+					this.puzzle[i] = new Block(x, y, x, y,this.blockSize, this.blockSize);
 					this.puzzle[i].draw(this.ctx);
 				}
 				else{//record the empty position
@@ -137,10 +155,12 @@
 					that.showWin();
 				}
 			},10);
+			this.step++;
+			this.show_step.innerHTML = this.step;
 		},
 		shuffle:function(){
-			var step = 100;
-			for(var i = 0; i < step * this.cols; i++ ){
+			var nums = 100;
+			for(var i = 0; i < nums * this.cols; i++ ){
 				var blocksCanMove = new Array();
 				var canMove_num = 0;
 				for(var j = 0; j < this.puzzle.length; j++ ){
@@ -163,6 +183,10 @@
 				this.shuffle();
 			}
 			this.refresh();
+
+			//reset step
+			this.step = 0;
+			this.show_step.innerHTML = this.step;
 		},
 		checkWin:function(){
 			for(var i = 0; i < this.puzzle.length; i++){
@@ -174,7 +198,7 @@
 			return true;
 		},
 		showWin:function(){
-			alert("Win!");
+			alert("Win! Your step is "+this.step);
 		},
 		addHandlerToBlock:function(){
 			var that = this;
@@ -207,75 +231,82 @@
 				}
 				
 			}
+		},
+		moveStep:function(){
+			return this.step;
 		}
 	}
 	window.Board = Board;
 	function Game(){
+		this.board = new Board();
 		this.time = 0;
-		this.step = 0;
 		this.timer = null;
+		this.show_time = document.getElementById("time");
+		this.show_step = document.getElementById("step");
+		this.ctx = document.getElementById("puzzle_area").getContext("2d");
+
+		this.init();
 	}
 	Game.prototype = {
+		init:function(){
+			this.stopGame();
+			this.board = new Board();
+			this.addEventHandler();
+
+			var self = this;
+			var new_img = this.board.block.imgLoader.image;
+			new_img.onload = function(){
+				self.board.init();
+			}
+		},
 		newGame:function(){
-			clearInterval(this.timer);
-			
-			var show_time = document.getElementById("time");
-			show_time.innerHTML = '0';
-			//clear the step
-			document.getElementById("step").innerHTML = '0';
+			var that = this;
 			this.timer = setInterval(function(){
-				time.innerHTML = this.time++;
+				that.show_time.innerHTML = that.time++;
 			}, 1000);
 		},
-		abandonGame:function(){
+		stopGame:function(){
 			this.time = 0;
-			this.step = 0;
+			this.show_time.innerHTML = '0';
+			this.show_step.innerHTML = '0';
 			clearInterval(this.timer);
+		},
+		addEventHandler:function(){
+			var that = this;
+
+			var start_btn = document.getElementById("start");
+			start_btn.onclick = function(){
+				that.stopGame();
+				start_btn.innerHTML = "Replay";
+				that.board.shuffle();
+				that.board.addHandlerToBlock();
+				that.newGame();
+			}
+			var select_bg = document.getElementById("bg");
+			select_bg.onchange = function(event){
+				var url = "background" + event.target.selectedIndex + ".jpg";
+				//that.board.block.imgLoader.name = url;
+				imageName = url;
+				that.init();
+			}
+			//choose the difficulty of the game, higher number, the more difficult the game
+			var select_level = document.getElementById("choose_level");
+			select_level.onchange = function(event){
+				cols = parseInt(select_level.options[event.target.selectedIndex].text);
+				document.getElementById("level").innerHTML = cols;
+				that.init();
+			}
+			//have a look at the whole picture
+			var cheat = document.getElementById("cheat");
+			cheat.onmousedown = function(){
+				that.ctx.drawImage(that.board.block.imgLoader.image, 0, 0, width, height);
+			}
+			cheat.onmouseup = function(){
+				that.ctx.clearRect(0, 0, width, height);
+				that.board.refresh();
+			}
 		}
 	}
 	window.Game = Game;
+	return new PuzzleGame();
 })();
-var el = document.getElementById("puzzle_area");
-var ctx = el.getContext("2d");
-
-var image = new Image();
-image.src = "resource/background0.jpg";
-image.onload = init;
-var width = 400;
-var height = width;
-var COLNUM = 3;
-function init(){
-	board = new Board(image, COLNUM, width, height);
-	board.init();
-}
-var start_btn = document.getElementById("start");
-
-var start_time = null;
-start_btn.onclick = function(){
-	start_btn.innerHTML = "Replay";
-	game = new Game();
-	board.shuffle();
-	game.newGame();
-}
-var select_bg = document.getElementById("bg");
-select_bg.onchange = function(event){
-	image.src = "resource/background" + event.target.selectedIndex + ".jpg";
-	init();
-}
-//choose the difficulty of the game, higher number, the more difficult the game
-var select_level = document.getElementById("choose_level");
-select_level.onchange = function(event){
-	//stop();
-	COLNUM = parseInt(select_level.options[event.target.selectedIndex].text);
-	document.getElementById("level").innerHTML = COLNUM;
-	init();
-}
-//have a look at the whole picture
-var cheat = document.getElementById("cheat");
-cheat.onmousedown = function(){
-	ctx.drawImage(image, 0, 0, width, height);
-}
-cheat.onmouseup = function(){
-	ctx.clearRect(0, 0, width, height);
-	board.refresh();
-}
