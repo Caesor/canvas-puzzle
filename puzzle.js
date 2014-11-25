@@ -5,12 +5,13 @@
  * Players will require put all zero-piece pattern together, then the whole plane will show.
  *
  * @author Nemo
- * @version 2.0
+ * @version 2.8
  * 
  * @param  COLNUM  The column number of puzzle
  * 
  */
 var PuzzleGame = (function(){
+
 	var cols = 3;
 	var raws = cols;
 	var width = 400;
@@ -38,22 +39,23 @@ var PuzzleGame = (function(){
 		this.image = new Image();
 		this.image.src = path + imageName;
 	}
-	function Block(sx, sy, sw, x, y, w){
+	//each piece of the whole puzzle map
+	function Block(sx, sy, sw, dx, dy, dw){
 		this.imgLoader = new ImgLoader();
 		this.image = this.imgLoader.image;
 		this.left = sx;
 		this.top = sy;
-		this.old_block = sw;
-		this.x = x;
-		this.y = y;
-		this.width = w;
-		this.height = w;
+		this.origin_block = sw;
+		this.x = dx;
+		this.y = dy;
+		this.width = dw;
+		this.height = dw;
 	}
 	Block.prototype.draw = function(context){
-		context.drawImage(this.image, this.left, this.top, this.old_block, this.old_block, this.x, this.y, this.width, this.height);
+		context.drawImage(this.image, this.left, this.top, this.origin_block, this.origin_block, this.x, this.y, this.width, this.height);
 	}
-	window.Block = Block;
-	//the map
+
+	//The puzzle map
 	function Board(n, w, h){
 		this.cols = n || cols;
 		this.total_num = this.cols * this.cols;
@@ -112,6 +114,7 @@ var PuzzleGame = (function(){
 		},
 		drawBlocks:function(p){
 			for(var i = 0; i < this.total_num - 1; i++){
+				//each puzzle[i] is a Block object
 				this.puzzle[i].draw(this.ctx);
 				if(p && this.ctx.isPointInPath(p.x, p.y)){
 					alert(p)
@@ -142,7 +145,7 @@ var PuzzleGame = (function(){
 			clearInterval(timer);
 			var that = this;
 			timer = setInterval(function(){
-				var num = 13;
+				var num = 20;
 				if(that.puzzle[id].y == that.emptyPosition[1]){
 				//	alert(1)
 					var speed = that.puzzle[id].x < parseInt(that.emptyPosition[0])?num:-num;
@@ -171,6 +174,7 @@ var PuzzleGame = (function(){
 					that.showWin();
 				}
 			},10);
+			//record the step
 			this.step++;
 			this.show_step.innerHTML = this.step;
 		},
@@ -248,11 +252,9 @@ var PuzzleGame = (function(){
 				
 			}
 		},
-		moveStep:function(){
-			return this.step;
-		}
 	}
-	window.Board = Board;
+
+	//Class Game
 	function Game(){
 		this.board = new Board();
 		this.time = 0;
@@ -301,7 +303,6 @@ var PuzzleGame = (function(){
 			var select_bg = document.getElementById("bg");
 			select_bg.onchange = function(event){
 				var url = "background" + event.target.selectedIndex + ".jpg";
-				//that.board.block.imgLoader.name = url;
 				imageName = url;
 				that.init();
 			}
@@ -323,6 +324,5 @@ var PuzzleGame = (function(){
 			}
 		}
 	}
-	window.Game = Game;
 	return new PuzzleGame();
 })();
