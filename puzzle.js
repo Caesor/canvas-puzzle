@@ -98,9 +98,9 @@ var PuzzleGame = (function(){
 			}
 		},
 		drawGrid:function(){
-			this.ctx.strokeStyle = "rgba(40,40,40,.8)";
+			this.ctx.strokeStyle = "rgba(40,40,40,.6)";
 			this.ctx.lineWidth = 1;
-			for(var i = 0; i < this.cols; i++){
+			for(var i = 1; i < this.cols; i++){
 				this.ctx.beginPath();
 				this.ctx.moveTo(0, i * this.blockSize);
 				this.ctx.lineTo(this.canvas.width, i * this.blockSize);
