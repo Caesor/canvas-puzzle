@@ -24,12 +24,10 @@ var PuzzleGame = (function(){
 	PuzzleGame.prototype.setScreen = function(){
 		var canvas = document.getElementById("puzzle_area");
 		if(canvas.scrollWidth < 400){
-			alert(0)
 			canvas.width = document.getElementById('puzzle_wall').clientWidth;
 			canvas.height = canvas.width;
 			width = height = canvas.width;
 		}else{
-			alert(1)
 			canvas.width = width;
 			canvas.height = height;
 		}
