@@ -18,7 +18,19 @@ var PuzzleGame = (function(){
 	var imageName = "background0.jpg"
 
 	function PuzzleGame(){
+		this.setScreen();
 		this.game = new Game();
+	}
+	PuzzleGame.prototype.setScreen = function(){
+		var canvas = document.getElementById("puzzle_area");
+		if(canvas.scrollWidth < 400){
+			canvas.width = document.getElementById('puzzle_wall').clientWidth;
+			canvas.height = canvas.width;
+			width = height = canvas.width;
+		}else{
+			canvas.width = width;
+			canvas.height = height;
+		}
 	}
 
 	function ImgLoader(src){
@@ -26,18 +38,19 @@ var PuzzleGame = (function(){
 		this.image = new Image();
 		this.image.src = path + imageName;
 	}
-	function Block(l, t, x, y, w, h){
+	function Block(sx, sy, sw, x, y, w){
 		this.imgLoader = new ImgLoader();
 		this.image = this.imgLoader.image;
-		this.left = l;
-		this.top = t;
+		this.left = sx;
+		this.top = sy;
+		this.old_block = sw;
 		this.x = x;
 		this.y = y;
 		this.width = w;
-		this.height = h;
+		this.height = w;
 	}
 	Block.prototype.draw = function(context){
-		context.drawImage(this.image, this.left, this.top, this.width, this.height, this.x, this.y, this.width, this.height);
+		context.drawImage(this.image, this.left, this.top, this.old_block, this.old_block, this.x, this.y, this.width, this.height);
 	}
 	window.Block = Block;
 	//the map
@@ -63,15 +76,18 @@ var PuzzleGame = (function(){
 			this.initGrid();
 			this.drawGrid();
 		//	this.shuffle();
-			//this.addHandlerToBlock();
+		//	this.addHandlerToBlock();
 		},
 		initGrid:function(){
+			var old_blockSize = 400 / this.cols;
 			for(var i = 0; i < this.total_num; i++){
+				var sx = (i % this.cols) * old_blockSize;
+				var sy = parseInt(i / this.cols) * old_blockSize;
 				var x = (i % this.cols) * this.blockSize;
 				var y = parseInt(i / this.cols) * this.blockSize;
 				//don't draw the last part of puzzle
 				if(i != this.total_num - 1){
-					this.puzzle[i] = new Block(x, y, x, y,this.blockSize, this.blockSize);
+					this.puzzle[i] = new Block(sx, sy, old_blockSize, x, y, this.blockSize);
 					this.puzzle[i].draw(this.ctx);
 				}
 				else{//record the empty position
@@ -105,7 +121,7 @@ var PuzzleGame = (function(){
 		canMove:function(obj){
 			var distance = Math.sqrt(Math.pow(parseInt(obj.x) - parseInt(this.emptyPosition[0]),2)+Math.pow(parseInt(obj.y) - parseInt(this.emptyPosition[1]),2));
 			//alert(distance)
-			if (distance > 400 / this.cols){
+			if (distance > this.blockSize + 1){
 				return false;
 			}
 			return true;
@@ -268,7 +284,7 @@ var PuzzleGame = (function(){
 		stopGame:function(){
 			this.time = 0;
 			this.show_time.innerHTML = '0';
-			this.show_step.innerHTML = '0';
+			this.show_step.innerHTML = '0'
 			clearInterval(this.timer);
 		},
 		addEventHandler:function(){
