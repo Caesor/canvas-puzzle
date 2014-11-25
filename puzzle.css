@@ -7,7 +7,7 @@ header h1{font-size: 40px;font-weight: 900;text-align: center;line-height: 50px;
 header .game_info{font-size: 20px; text-align: center;margin: 10px 0;list-style-type: none;}
 header .game_info li{display: inline-block; margin:0 30px;}
 #puzzle_wall{text-align: center;width: 90%;margin: 0 auto;}
-canvas{border:1px solid #ccc;max-width: 400px;}
+canvas{border:1px solid #ccc;width:100%;max-width: 400px;}
 
 .control_bar select, button{padding: 5px;margin: 10px 2px;}
 .control_bar label{display:inline-block;}

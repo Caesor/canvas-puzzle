@@ -24,10 +24,12 @@ var PuzzleGame = (function(){
 	PuzzleGame.prototype.setScreen = function(){
 		var canvas = document.getElementById("puzzle_area");
 		if(canvas.scrollWidth < 400){
+			alert(0)
 			canvas.width = document.getElementById('puzzle_wall').clientWidth;
 			canvas.height = canvas.width;
 			width = height = canvas.width;
 		}else{
+			alert(1)
 			canvas.width = width;
 			canvas.height = height;
 		}
@@ -120,7 +122,7 @@ var PuzzleGame = (function(){
 		},
 		canMove:function(obj){
 			var distance = Math.sqrt(Math.pow(parseInt(obj.x) - parseInt(this.emptyPosition[0]),2)+Math.pow(parseInt(obj.y) - parseInt(this.emptyPosition[1]),2));
-			//alert(distance)
+			//alert(this.blockSize)
 			if (distance > this.blockSize + 1){
 				return false;
 			}
