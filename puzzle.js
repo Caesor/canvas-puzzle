@@ -244,6 +244,11 @@ var PuzzleGame = (function(){
 				}
 			}
 		},
+		stopHandlerToBlock:function(){
+			this.canvas.onclick = function(e){
+				return false;
+			}
+		},
 		searchBlock:function(x, y){
 			for(var i = 0; i < this.puzzle.length; i++){
 				if( x - this.puzzle[i].x > 0 && y - this.puzzle[i].y > 0 && x - this.puzzle[i].x < this.puzzle[i].width && y - this.puzzle[i].y < this.puzzle[i].height){
@@ -288,6 +293,8 @@ var PuzzleGame = (function(){
 			this.show_time.innerHTML = '0';
 			this.show_step.innerHTML = '0'
 			clearInterval(this.timer);
+			this.board.stopHandlerToBlock();
+			document.getElementById("start").innerHTML = "Play";
 		},
 		addEventHandler:function(){
 			var that = this;
