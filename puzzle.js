@@ -16,7 +16,7 @@ var PuzzleGame = (function(){
 	var raws = cols;
 	var width = 400;
 	var height = width;
-	var imageName = "background0.jpg"
+	var imgurl = "resource/background0.jpg"
 
 	function PuzzleGame(){
 		this.setScreen();
@@ -58,9 +58,8 @@ var PuzzleGame = (function(){
 	}
 
 	function ImgLoader(src){
-		var path = "resource/"
 		this.image = new Image();
-		this.image.src = path + imageName;
+		this.image.src = imgurl;
 	}
 	//each piece of the whole puzzle map
 	function Block(sx, sy, sw, dx, dy, dw){
@@ -104,7 +103,8 @@ var PuzzleGame = (function(){
 		//	this.addHandlerToBlock();
 		},
 		initGrid:function(){
-			var old_blockSize = 400 / this.cols;
+			var picSize = (this.block.image.width < this.block.image.height)? this.block.image.width:this.block.image.height;
+			var old_blockSize = picSize / this.cols;
 			for(var i = 0; i < this.total_num; i++){
 				var sx = (i % this.cols) * old_blockSize;
 				var sy = parseInt(i / this.cols) * old_blockSize;
@@ -332,8 +332,8 @@ var PuzzleGame = (function(){
 			}
 			var select_bg = document.getElementById("bg");
 			select_bg.onchange = function(event){
-				var url = "background" + event.target.selectedIndex + ".jpg";
-				imageName = url;
+				var url = "resource/background" + event.target.selectedIndex + ".jpg";
+				imgurl = url;
 				that.init();
 			}
 			//choose the difficulty of the game, higher number, the more difficult the game
@@ -352,6 +352,28 @@ var PuzzleGame = (function(){
 				that.ctx.clearRect(0, 0, width, height);
 				that.board.refresh();
 			}
+			//upload img
+			var input_file = document.getElementById("uploadImg");
+			if(typeof FileReader === 'undefined'){
+                input_file.setAttribute('disabled','disabled');
+            }else{
+                input_file.addEventListener('change',readFile, false);
+            }
+            function readFile(){
+                var file = this.files[0];
+                if(!/image\/\w+/.test(file.type)){
+                    alert("Only Image File");            
+                    return false;
+                }
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function(){
+                    //alert(9)
+                    that.ctx.clearRect(0,0,width, height);
+                    imgurl = this.result;
+                    that.init();
+                }
+            }
 		}
 	}
 	return new PuzzleGame();

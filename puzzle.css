@@ -12,7 +12,7 @@ canvas{width:100%;max-width: 400px;}
 #cheat{}
 
 #set_btn{display: none;}
-#setting{position: fixed;height: 100%;width:20%;min-width:200px;top:0;right:0;font-family:fantasy,serif;background: #2f2f2f;color:#ccc;text-align:left;box-shadow: inset 0 0 20px 5px rgba(0,0,0,.7);}
+#setting{position: absolute;height: 100%;width:20%;min-width:200px;top:0;right:0;font-family:fantasy,serif;background: #2f2f2f;color:#ccc;text-align:left;box-shadow: inset 0 0 20px 5px rgba(0,0,0,.7);}
 #setting h3{text-align:center;}
 #setting ul li{list-style-type: none;padding:0 10px 10px 20px;}
 #setting ul h4{font-weight: 100;margin:5px 0;}
@@ -30,7 +30,7 @@ footer{text-align: center;width: 100%;opacity: 0.5;line-height:40px;margin: 0 au
 	#cheat{display:none;}
 	#set_btn{display:block;width: 35px;height: 35px;position: absolute;right: 0;top: 0;cursor: pointer;z-index:100;}
 	#set_btn img{width: 100%;}
-	#setting{position: absolute;right: -200px;top:0;height: 100%;width:200px;}
+	#setting{right: -200px;width:200px;}
 
 	#puzzle_wall, #setting, #set_btn{transition:all .3s ease; -webkit-transition:all .3s ease;)
 }
