@@ -20,13 +20,13 @@ canvas{width:100%;max-width: 400px;}
 .control_bar label{display:inline-block;}
 footer{text-align: center;width: 100%;opacity: 0.5;line-height:40px;margin: 0 auto;}
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 800px){
 	body{overflow: hidden;}
 	#puzzle_wall{position: relative;right: 0;top: 0;height: 100%;width: 90%;margin: 0 5%;}
 	header h1 {font-size: 30px;line-height: 30px;}
 	header .game_info li{font-size: 18px;margin:0 10px;}
 	.control_bar label{text-align:left;}
-	#start{width: 100%;}
+	#start{width: 100%;max-width: 400px;}
 	#cheat{display:none;}
 	#set_btn{display:block;width: 35px;height: 35px;position: absolute;right: 0;top: 0;cursor: pointer;z-index:100;}
 	#set_btn img{width: 100%;}
