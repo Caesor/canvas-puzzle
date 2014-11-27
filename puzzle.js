@@ -24,6 +24,10 @@ var PuzzleGame = (function(){
 	}
 	PuzzleGame.prototype.setScreen = function(){
 		var canvas = document.getElementById("puzzle_area");
+		var set_btn = document.getElementById("set_btn");
+		var puzzle_wall = document.getElementById("puzzle_wall");
+		var setting = document.getElementById("setting");
+
 		if(canvas.scrollWidth < 400){
 			canvas.width = document.getElementById('puzzle_wall').clientWidth;
 			canvas.height = canvas.width;
@@ -31,6 +35,25 @@ var PuzzleGame = (function(){
 		}else{
 			canvas.width = width;
 			canvas.height = height;
+		}
+		//center middle of screen
+		if(document.body.clientHeight > puzzle_wall.clientHeight){
+			puzzle_wall.style.top = (document.body.clientHeight - puzzle_wall.clientHeight)/2;
+		}
+
+		//show the setting box	
+		set_btn.onclick = function(){
+			//alert(set_btn.attributes["state"].value)
+			if(set_btn.attributes["state"].value == 1){
+				puzzle_wall.style.right = setting.clientWidth + "px";
+				setting.style.right = 0 + "px";
+				set_btn.attributes["state"].value = 0;
+			}else{
+				puzzle_wall.style.right = "0px";
+				setting.style.right = - setting.clientWidth + "px";
+				set_btn.attributes["state"].value = 1;
+			}
+			
 		}
 	}
 

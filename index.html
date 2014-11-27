@@ -9,34 +9,44 @@
 	<link rel="stylesheet" type="text/css" href="puzzle.css" />
 </head>
 <body>
-	<header>
-		<h1>Puzzle</h1>
-		<ul class="game_info">
-			<li>Level : <span id="level">3</span></li>
-			<li>Step : <span id="step">0</span></li>
-			<li>Time : <span id="time">0</span> s </li>
-		</ul>
-	</header>
 	<section id="puzzle_wall">
+		<div id="set_btn" state = "1"><img src="resource/setting.png" alt=""></div>
+		<header>
+			<h1>Puzzle</h1>
+			<ul class="game_info">
+				<li>Level : <span id="level">3</span></li>
+				<li>Step : <span id="step">0</span></li>
+				<li>Time : <span id="time">0</span> s </li>
+			</ul>
+		</header>
 		<canvas id="puzzle_area">该浏览器不支持canvas</canvas>
 		<section class="control_bar">
 			<button id="start">Start</button>
-			<label>Backgroud:
+			<button id="cheat">Cheat</button>
+		</section>
+	</section>
+	<section id="setting">
+		<h3>Personal Tailor</h3>
+		<ul>
+		    <li>
+		    	<h4>Background:</h4>
 				<select id="bg">
 					<option>Dragon Rider</option>
 					<option>Kunfu Panda</option>
 					<option>Cartoon Balloon</option>
 				</select>
-			</label>
-			<label>Level:
+		    </li>
+		    <li>
+		    	<h4>Level:</h4>
 				<select id="choose_level">
 					<option>3</option>
 					<option>4</option>
 					<option>5</option>
 				</select>
-			</label>
-			<button id="cheat">Cheat</button>
-		</section>
+		    </li>
+		    <li></li>
+		    <li></li>
+		</ul>
 	</section>
 
 	<script type="text/javascript" src="puzzle.js"></script>
