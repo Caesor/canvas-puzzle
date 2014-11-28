@@ -31,7 +31,7 @@ footer{text-align: center;width: 100%;opacity: 0.5;line-height:40px;margin: 0 au
 	#cheat{display:none;}
 	#set_btn{display:block;width: 35px;height: 35px;position: absolute;right: 0;top: 0;cursor: pointer;z-index:100;}
 	#set_btn img{width: 100%;}
-	#setting{right: -200px;width:200px;overflow-y:scroll;}
+	#setting{right: -200px;width:0px;overflow-y:scroll;}
 
 	#puzzle_wall, #setting, #set_btn{transition:all .3s ease; -webkit-transition:all .3s ease;)
 }

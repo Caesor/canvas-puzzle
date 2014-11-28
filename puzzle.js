@@ -45,10 +45,12 @@ var PuzzleGame = (function(){
 		set_btn.onclick = function(){
 			//alert(set_btn.attributes["state"].value)
 			if(set_btn.attributes["state"].value == 1){
+				setting.style.width = "200px";
 				puzzle_wall.style.right = setting.clientWidth + "px";
 				setting.style.right = 0 + "px";
 				set_btn.attributes["state"].value = 0;
 			}else{
+				setting.style.width = "0";
 				puzzle_wall.style.right = "0px";
 				setting.style.right = - setting.clientWidth + "px";
 				set_btn.attributes["state"].value = 1;
