@@ -3,7 +3,7 @@ canvas-puzzle
 
 A puzzle game drawed in html5-canvas.
 
-[URL:](http://caesor.github.io/canvas-puzzle/)
+URL: [http://caesor.github.io/canvas-puzzle/](http://caesor.github.io/canvas-puzzle/)
 
 #Introduction
 
