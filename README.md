@@ -23,13 +23,13 @@ GOOD LUCK! && HAVE FUN!
 
 Layout:
 
-	`.
+	.
 	|--index.html
 	|--resource
 		|--images
 		|--puzzle.js
 		|--puzzle.css
-	|--README.md`
+	|--README.md
 
 ##License
 
