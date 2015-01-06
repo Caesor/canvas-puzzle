@@ -16,7 +16,7 @@ var PuzzleGame = (function(){
 	var raws = cols;
 	var width = 400;
 	var height = width;
-	var imgurl = "resource/background0.jpg"
+	var imgurl = "resource/images/background0.jpg"
 
 	function PuzzleGame(){
 		this.setScreen();
@@ -267,6 +267,7 @@ var PuzzleGame = (function(){
 				var onMouseMoveBlockId = that.searchBlock(mouseX, mouseY);
 				if(typeof onMouseMoveBlockId == 'number'){
 				}
+				//console.log({x:mouseX, y:mouseY})
 			}
 		},
 		stopHandlerToBlock:function(){
@@ -334,7 +335,7 @@ var PuzzleGame = (function(){
 			}
 			var select_bg = document.getElementById("bg");
 			select_bg.onchange = function(event){
-				var url = "resource/background" + event.target.selectedIndex + ".jpg";
+				var url = "resource/images/background" + event.target.selectedIndex + ".jpg";
 				imgurl = url;
 				that.init();
 			}

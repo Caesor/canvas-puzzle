@@ -7,11 +7,11 @@
   	<meta name="author" content="nemo" />
 	<meta name="keywords" content="html5 canvas puzzle javascript" />
 	<meta name="description" content="A little puzzle game draws by canvas." />
-	<link rel="stylesheet" type="text/css" href="puzzle.css" />
+	<link rel="stylesheet" type="text/css" href="resource/puzzle.css" />
 </head>
 <body>
 	<section id="puzzle_wall">
-		<div id="set_btn" state = "1"><img src="resource/setting.png" alt=""></div>
+		<div id="set_btn" state = "1"><img src="resource/images/setting.png" alt=""></div>
 		<header>
 			<h1>Puzzle</h1>
 			<ul class="game_info">
@@ -22,7 +22,7 @@
 		</header>
 		<canvas id="puzzle_area">该浏览器不支持canvas</canvas>
 		<section class="control_bar">
-			<button id="start">Start</button>
+			<button class="btn" id="start">Start</button>
 		</section>
 	</section>
 	<section id="setting">
@@ -50,9 +50,9 @@
 		    </li>
 		    <li></li>
 		</ul>
-		<section class="control_bar"><button id="cheat">Cheat</button></section>
+		<section class="control_bar"><button class="btn" id="cheat">Cheat</button></section>
 	</section>
 
-	<script type="text/javascript" src="puzzle.js"></script>
+	<script type="text/javascript" src="resource/puzzle.js"></script>
 </body>
 </html>
