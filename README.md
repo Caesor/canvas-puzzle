@@ -3,6 +3,8 @@ canvas-puzzle
 
 A puzzle game drawed in html5-canvas.
 
+[URL:](http://caesor.github.io/canvas-puzzle/)
+
 #Introduction
 
 Puzzle is a famouse game, problem or toy that tests a person's ingenuity. In a puzzle, one is required to put pieces together, in a logical way, in order to arrive at the correct solution of the puzzle. 
@@ -20,13 +22,14 @@ GOOD LUCK! && HAVE FUN!
 #Development
 
 Layout:
-`.
-|--index.html
-|--resource
-	|--images
-	|--puzzle.js
-	|--puzzle.css
-|--README.md`
+
+	`.
+	|--index.html
+	|--resource
+		|--images
+		|--puzzle.js
+		|--puzzle.css
+	|--README.md`
 
 #License
 
